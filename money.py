@@ -24,6 +24,8 @@ class Currency:
         """
         Should return the currency code, or code with symbol in parentheses.
         """
+        if self.currency.symbol:
+            return f"{self.currency.symbol}"
         self.code = code(symbol)
 
     def __eq__(self, other):
@@ -75,10 +77,11 @@ class Money:
         currencies, raise a DifferentCurrencyError.
         """
         if self.currency == other.currency:
-            self.amount += other.amount
+            new_amount = self.amount + other.amount
+            return Money(new_amount, self.currency)
         else:
             raise DifferentCurrencyError
-        return self
+        # return self
 
     def sub(self, other):
         """
